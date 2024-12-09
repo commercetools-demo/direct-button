@@ -1,26 +1,26 @@
 import { GRAPHQL_TARGETS } from '@commercetools-frontend/constants';
-import MyCustomApps from './fetch-my-custom-apps.setting.graphql';
-import { OrganizationResponse } from './types/organization';
+import MyCustomApps from './fetch-my-project.setting.graphql';
 import { useApplicationContext, useMcQuery } from '@commercetools-frontend/application-shell-connectors';
-import { MyCustomApplication } from './types/app';
+import { MyProject } from './types/app';
 
 export const useOrganization = () => {
 
-    const { applicationId } = useApplicationContext(context => context.environment);
+    const project = useApplicationContext(context => context.project);
 
     const {
-        data: myAppsData,
+        data: myProjectData,
     } = useMcQuery<{
-        myCustomApplications: MyCustomApplication[];
+        project: MyProject;
     }>(MyCustomApps, {
         context: {
             target: GRAPHQL_TARGETS.SETTINGS_SERVICE,
         },
+        variables: {
+            projectKey: project?.key
+        }
     });
 
-    const myApp = myAppsData?.myCustomApplications.find((app) => app.id === applicationId);
-
     return {
-        organizationId: myApp?.organizationId,
+        organizationId: myProjectData?.project?.owner?.id
     };
 };

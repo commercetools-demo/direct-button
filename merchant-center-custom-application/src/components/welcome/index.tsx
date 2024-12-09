@@ -1,9 +1,10 @@
-import { useHistory } from 'react-router-dom';
+import { useOrganization } from '../../hooks/use-organization';
 
-const Welcome = ({ organizationId }: { organizationId: string }) => {
-  const { replace } = useHistory();
+const Welcome = () => {
+  const { organizationId } = useOrganization();
+
   if (organizationId) {
-    replace(`account/organizations/${organizationId}/teams`);
+    window.location.replace(`${window.location.origin}/account/organizations/${organizationId}/teams`);
     return null;
   }
   return <div>Loading...</div>;

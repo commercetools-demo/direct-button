@@ -2,18 +2,11 @@ import type { ReactNode } from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Spacings from '@commercetools-uikit/spacings';
 import Welcome from './components/welcome';
-import { useOrganization } from './hooks/use-organization';
-import { useApplicationContext } from '@commercetools-frontend/application-shell-connectors';
 
 type ApplicationRoutesProps = {
   children?: ReactNode;
 };
 const ApplicationRoutes = (_props: ApplicationRoutesProps) => {
-  const {organizationId} = useOrganization();
-
-  
-  
-
   /**
    * When using routes, there is a good chance that you might want to
    * restrict the access to a certain route based on the user permissions.
@@ -29,7 +22,7 @@ const ApplicationRoutes = (_props: ApplicationRoutesProps) => {
     <Spacings.Inset scale="l">
       <Switch>
         <Route>
-          <Welcome organizationId={organizationId}/>
+          <Welcome />
         </Route>
       </Switch>
     </Spacings.Inset>

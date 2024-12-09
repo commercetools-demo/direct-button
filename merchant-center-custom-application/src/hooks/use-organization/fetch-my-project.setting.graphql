@@ -1,0 +1,7 @@
+query AboutProject($projectKey: String!) {
+  project(key: $projectKey) {
+    owner {
+      id
+    }
+  }
+}
